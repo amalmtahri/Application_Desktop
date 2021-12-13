@@ -102,7 +102,6 @@ public class RegisterController implements Initializable {
 	private Scene scene;
 
 	List<Client> clientList = new ArrayList<>();
-	ObservableList<Client> data;
 	@FXML
 	private Label choixIdentite;
 	@FXML
@@ -209,9 +208,6 @@ public class RegisterController implements Initializable {
 
 	public void dataClient() throws SQLException {
 		ClientImpl clientImpl = new ClientImpl();
-		clientList.add(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), telephone.getText(),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
-		System.out.println(clientList);
-		data = FXCollections.<Client>observableArrayList(clientList);
 		ClientDAO clientDAO = new ClientDAO();
 		clientDAO.addClient(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), telephone.getText(),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
 		emptyChamp();
@@ -235,22 +231,9 @@ public class RegisterController implements Initializable {
 		errorTelephone.setText("");
 		errorEmail.setText("");
 		verifChamps.setText("");
-
-		remplireTable();
+		initialize(null, null);
 	}
 
-	public void remplireTable() {
-		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
-		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
-		prenom.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
-		nom.setCellValueFactory(new PropertyValueFactory<Client, String>("lastname"));
-		tele.setCellValueFactory(new PropertyValueFactory<Client, String>("phone"));
-		identite.setCellValueFactory(new PropertyValueFactory<Client, String>("cin"));
-		adresseClient.setCellValueFactory(new PropertyValueFactory<Client, String>("address"));
-		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
-		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
-		tableClientList.setItems(data);
-	}
 	/*@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -282,8 +265,6 @@ public class RegisterController implements Initializable {
 		// TODO Auto-generated method stub
 		
 		ClientDAO clientDAO = new ClientDAO();
-		
-		
 		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
 		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
 		prenom.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
