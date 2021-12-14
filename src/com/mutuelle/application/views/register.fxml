@@ -166,13 +166,10 @@
                                     </TableView>
                                     <AnchorPane layoutY="1.0" prefHeight="61.0" prefWidth="707.0" style="-fx-background-color: white;">
                                        <children>
-                                          <TextField layoutX="387.0" layoutY="15.0" prefHeight="31.0" prefWidth="164.0" promptText="Search with name,email,cin" style="-fx-border-color: #835DF0;" />
-                                          <Button layoutX="574.0" layoutY="16.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="83.0" style="-fx-background-color: #835DF0; -fx-border-color: #835DF0;" text="Ok" textFill="WHITE">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <ComboBox fx:id="nameCompany" layoutX="31.0" layoutY="15.0" onAction="#filtreWithCompany" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #835DF0;" />
+                                          <TextField fx:id="filtre" layoutX="409.0" layoutY="15.0" onAction="#filtreWithString" prefHeight="31.0" prefWidth="279.0" promptText="Search with FirstName, LastName, Email, Cin" style="-fx-border-color: #835DF0;" />
+                                          <ComboBox fx:id="nameCompany" layoutX="146.0" layoutY="15.0" onAction="#filtreWithCompany" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #835DF0;" />
+                                          <Label layoutX="323.0" layoutY="23.0" text="Search Client :" />
+                                          <Label layoutX="8.0" layoutY="22.0" text="Search Name Company :" />
                                        </children>
                                     </AnchorPane>
                                  </children>

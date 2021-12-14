@@ -78,6 +78,8 @@ public class RegisterController implements Initializable {
 	
 	@FXML
 	private ComboBox<String> nameCompany ;
+	@FXML
+	private TextField filtre;
 
 	@FXML
 	private TableColumn<Client, String> badge;
@@ -299,6 +301,21 @@ public class RegisterController implements Initializable {
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.filtreWithCompany(nameCompany.getValue()));
+	}
+	
+	@FXML
+	public void filtreWithString() {
+		ClientDAO clientDAO = new ClientDAO();
+		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
+		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
+		prenom.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
+		nom.setCellValueFactory(new PropertyValueFactory<Client, String>("lastname"));
+		tele.setCellValueFactory(new PropertyValueFactory<Client, String>("phone"));
+		identite.setCellValueFactory(new PropertyValueFactory<Client, String>("cin"));
+		adresseClient.setCellValueFactory(new PropertyValueFactory<Client, String>("address"));
+		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
+		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
+		tableClientList.setItems(clientDAO.filtre(filtre.getText()));
 	}
 	
 
