@@ -20,8 +20,11 @@ import javafx.collections.ObservableList;
 public class ClientDAO {
 	
 	public ObservableList<Client> data = FXCollections.observableArrayList();
+	public ObservableList<String> nameCompany = FXCollections.observableArrayList();
+	public ObservableList<Client> filtreNameCompany = FXCollections.observableArrayList();
 
 	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
 	 
 	 public void addClient(Client client) throws SQLException {
 		 
@@ -63,6 +66,45 @@ public class ClientDAO {
 	            JOptionPane.showMessageDialog(null, ex);
 	        }
 			return data;
+	}
+	 
+	public ObservableList<String> getNameCompany(){
+		
+
+	 	DatabaseConnection connectNow = new DatabaseConnection();
+	 	Connection connectDB = connectNow.getConnection();
+        try {
+            String requetteSQL  = "SELECT nomEntreprise FROM client";
+            PreparedStatement stat = connectDB.prepareStatement(requetteSQL);
+            ResultSet rs = stat.executeQuery();
+             while (rs.next()) {
+            	nameCompany.add(rs.getString("nomEntreprise"));
+            }
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, ex);
+	        }
+			return nameCompany;
+		
+	}
+	
+	public ObservableList<Client> filtreWithCompany(String nomEntreprise){
+		
+	 	DatabaseConnection connectNow = new DatabaseConnection();
+	 	Connection connectDB = connectNow.getConnection();
+	        System.out.println(connectDB);
+	        try {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(SELECT_QUERY); {
+	                preparedStatement.setString(1, nomEntreprise);
+	                ResultSet resultSet = preparedStatement.executeQuery();
+	                while (resultSet.next()) {
+	                	filtreNameCompany.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
+	                }
+	            }
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, ex);
+	        }
+			return filtreNameCompany;
+		
 	}
 }
 

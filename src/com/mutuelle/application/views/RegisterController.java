@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -74,6 +75,9 @@ public class RegisterController implements Initializable {
 	private Label verifChamps;
 	@FXML
 	private ChoiceBox<String> choisePhone ;
+	
+	@FXML
+	private ComboBox<String> nameCompany ;
 
 	@FXML
 	private TableColumn<Client, String> badge;
@@ -260,6 +264,7 @@ public class RegisterController implements Initializable {
 			e.printStackTrace();
 		}
 	}*/
+	// Data Build
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -275,7 +280,26 @@ public class RegisterController implements Initializable {
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.buildData());
-		
+		nameCompany.setItems(clientDAO.getNameCompany());		
 	}
+	
+	
+	//Filtre With Name of company
+	@FXML
+	public void filtreWithCompany() {
+		ClientDAO clientDAO = new ClientDAO();
+		
+		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
+		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
+		prenom.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
+		nom.setCellValueFactory(new PropertyValueFactory<Client, String>("lastname"));
+		tele.setCellValueFactory(new PropertyValueFactory<Client, String>("phone"));
+		identite.setCellValueFactory(new PropertyValueFactory<Client, String>("cin"));
+		adresseClient.setCellValueFactory(new PropertyValueFactory<Client, String>("address"));
+		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
+		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
+		tableClientList.setItems(clientDAO.filtreWithCompany(nameCompany.getValue()));
+	}
+	
 
 }
