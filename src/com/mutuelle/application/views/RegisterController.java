@@ -270,7 +270,7 @@ public class RegisterController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+		nameCompany.getItems().add("All");
 		ClientDAO clientDAO = new ClientDAO();
 		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
 		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
@@ -282,7 +282,7 @@ public class RegisterController implements Initializable {
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.buildData());
-		nameCompany.setItems(clientDAO.getNameCompany());		
+		nameCompany.getItems().addAll(clientDAO.getNameCompany());		
 	}
 	
 	
@@ -315,7 +315,7 @@ public class RegisterController implements Initializable {
 		adresseClient.setCellValueFactory(new PropertyValueFactory<Client, String>("address"));
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
-		tableClientList.setItems(clientDAO.filtre(filtre.getText()));
+		tableClientList.setItems(clientDAO.filtre(filtre.getText().trim()));
 	}
 	
 

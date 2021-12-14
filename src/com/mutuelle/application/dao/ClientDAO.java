@@ -27,6 +27,7 @@ public class ClientDAO {
 	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
 	 private static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
+	 private static final String GETDATA_QUERY = "SELECT * FROM client";
 	 
 	 public void addClient(Client client) throws SQLException {
 		 
@@ -45,7 +46,6 @@ public class ClientDAO {
 	            preparedStatement.setString(8, client.getNomEntreprise());
 	            preparedStatement.setString(9, client.getDateDebut());
 	            System.out.println(preparedStatement);
-	            // Step 3: Execute the query or update query
 	            preparedStatement.executeUpdate();
 	        }  
 	        catch(SQLException e) {
@@ -58,8 +58,7 @@ public class ClientDAO {
 		 	Connection connectDB = connectNow.getConnection();
 	      
 	        try {
-	            String requetteSQL  = "SELECT * FROM client";
-	            PreparedStatement stat = connectDB.prepareStatement(requetteSQL);
+	            PreparedStatement stat = connectDB.prepareStatement(GETDATA_QUERY);
 	            ResultSet rs = stat.executeQuery();
 	             while (rs.next()) {
 	                    data.add(new Client(rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
@@ -90,10 +89,9 @@ public class ClientDAO {
 	}
 	
 	public ObservableList<Client> filtreWithCompany(String nomEntreprise){
-	
 	 	DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
-	        System.out.println(connectDB);
+		if(!nomEntreprise.equalsIgnoreCase("All")) {
 	        try {
 	            PreparedStatement preparedStatement = connectDB.prepareStatement(SELECT_QUERY); {
 	                preparedStatement.setString(1, nomEntreprise);
@@ -105,6 +103,19 @@ public class ClientDAO {
 	        } catch (SQLException ex) {
 	            JOptionPane.showMessageDialog(null, ex);
 	        }
+		 }
+		else {
+			try {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(GETDATA_QUERY); {
+	                ResultSet resultSet = preparedStatement.executeQuery();
+	                while (resultSet.next()) {
+	                	filtreNameCompany.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
+	                }
+	            }
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, ex);
+	        }
+		}
 			return filtreNameCompany;
 	}
 	
@@ -112,22 +123,23 @@ public class ClientDAO {
 		DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
 	        System.out.println(connectDB);
-	        try {
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(FILTRE_QUERY); {
-	                preparedStatement.setString(1, value);
-	                preparedStatement.setString(2, value);
-	                preparedStatement.setString(3, value);
-	                preparedStatement.setString(4, value);
-	                ResultSet resultSet = preparedStatement.executeQuery();
-	                while (resultSet.next()) {
-	                	filtre.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
-	                }
-	            }
-	        } catch (SQLException ex) {
-	            JOptionPane.showMessageDialog(null, ex);
-	        }
+	       
+	        	try {
+		            PreparedStatement preparedStatement = connectDB.prepareStatement(FILTRE_QUERY); {
+		                preparedStatement.setString(1, value);
+		                preparedStatement.setString(2, value);
+		                preparedStatement.setString(3, value);
+		                preparedStatement.setString(4, value);
+		                ResultSet resultSet = preparedStatement.executeQuery();
+		                while (resultSet.next()) {
+		                	filtre.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
+		                }
+		            }
+		        } catch (SQLException ex) {
+		            JOptionPane.showMessageDialog(null, ex);
+		        }
+	        
 			return filtre;
-		
 	}
 }
 
