@@ -38,6 +38,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -238,6 +240,11 @@ public class RegisterController implements Initializable {
 		ClientImpl clientImpl = new ClientImpl();
 		ClientDAO clientDAO = new ClientDAO();
 		clientDAO.addClient(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), (choisePhone.getValue() + telephone.getText()  ),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText("Results:");
+		alert.setContentText("Client Sera ajouter!");
+		alert.showAndWait();
 		emptyChamp();
 	}
 	public void emptyChamp() {
@@ -259,7 +266,8 @@ public class RegisterController implements Initializable {
 		errorTelephone.setText("");
 		errorEmail.setText("");
 		verifChamps.setText("");
-		loadpayscodes();
+		buildData();
+		statistique();
 	}
 
 	
