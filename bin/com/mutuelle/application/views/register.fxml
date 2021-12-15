@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -170,6 +173,26 @@
                                           <ComboBox fx:id="nameCompany" layoutX="146.0" layoutY="15.0" onAction="#filtreWithCompany" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #835DF0;" />
                                           <Label layoutX="323.0" layoutY="23.0" text="Search Client :" />
                                           <Label layoutX="8.0" layoutY="22.0" text="Search Name Company :" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="User Data">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <AnchorPane layoutY="1.0" prefHeight="368.0" prefWidth="707.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <BarChart fx:id="barChart" layoutX="125.0" layoutY="24.0" prefHeight="340.0" prefWidth="457.0" title="Nombre des clients pour chaque date">
+                                            <xAxis>
+                                              <CategoryAxis fx:id="caDevices" label="Date de l'inscription" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis fx:id="navisits" label="Nombre des clients" side="LEFT" />
+                                            </yAxis>
+                                          </BarChart>
                                        </children>
                                     </AnchorPane>
                                  </children>

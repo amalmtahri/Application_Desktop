@@ -4,15 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
-
 import com.mutuelle.application.models.Client;
 import com.mutuelle.databaseConnection.DatabaseConnection;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,12 +22,13 @@ public class ClientDAO {
 	public ObservableList<String> nameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtreNameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtre = FXCollections.observableArrayList();
+	public List<Map<String, Integer>> statistiqueList; 
 
 	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
 	 private static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
 	 private static final String GETDATA_QUERY = "SELECT * FROM client";
-	 
+	 private static final String STATISTIQUE_QUERY = "SELECT created_at, COUNT(*) as 'count crated_at' FROM client GROUP BY created_at";
 	 public void addClient(Client client) throws SQLException {
 		 
 		  DatabaseConnection connectNow = new DatabaseConnection();
@@ -140,6 +140,27 @@ public class ClientDAO {
 		        }
 	        
 			return filtre;
+	}
+	
+	
+	 public List<Map<String, Integer>> statistique() {
+		 statistiqueList=new ArrayList<Map<String,Integer>>();
+		 	DatabaseConnection connectNow = new DatabaseConnection();
+		 	Connection connectDB = connectNow.getConnection();
+	        try {
+	            PreparedStatement stat = connectDB.prepareStatement(STATISTIQUE_QUERY);
+	            ResultSet rs = stat.executeQuery();  
+	            while (rs.next()) {
+                    Map<String,Integer> temp = new HashMap<String,Integer>();                
+                    temp.put(rs.getString("created_at"), rs.getInt("count crated_at"));
+                    statistiqueList.add(temp);
+                    System.out.println(statistiqueList);
+                }
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, ex);
+	        }
+	        
+			return statistiqueList;
 	}
 }
 

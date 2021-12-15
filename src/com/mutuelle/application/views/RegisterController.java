@@ -8,11 +8,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.mutuelle.application.Impl.ClientImpl;
 import com.mutuelle.application.dao.ClientDAO;
 import com.mutuelle.application.dao.OfficerDAO;
+import com.mutuelle.application.dao.StatistiqueDAO;
 import com.mutuelle.application.models.Client;
 
 import javafx.collections.FXCollections;
@@ -24,6 +26,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -103,6 +109,14 @@ public class RegisterController implements Initializable {
 	private TableView<Client> tableClientList;
 	boolean filledCin;
 
+	
+	
+	@FXML
+	private NumberAxis naVisits;
+	@FXML
+	private CategoryAxis caDevices;
+	@FXML
+	private BarChart<String, Number> barChart;
 	private Parent root;
 	private Stage stage;
 	private Scene scene;
@@ -282,7 +296,24 @@ public class RegisterController implements Initializable {
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.buildData());
-		nameCompany.getItems().addAll(clientDAO.getNameCompany());		
+		nameCompany.getItems().addAll(clientDAO.getNameCompany());	
+		
+		
+		//statistique
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.setName("Date de l'inscription");
+//		series.getData().add(new XYChart.Data<>("Desktop", 63));
+//		series.getData().add(new XYChart.Data<>("Tablet", 51));
+//		series.getData().add(new XYChart.Data<>("Mobile", 27));
+		
+		
+		var data = new XYChart.Series<String, Number>();
+        for(Map<String,Integer> elemt:clientDAO.statistique()) {
+             //System.out.println(elemt.keySet()+""+elemt.values().toArray()[0]);
+             int r=(int) elemt.values().toArray()[0];
+             series.getData().add(new XYChart.Data<>(elemt.keySet().toString(),r));
+        }
+        barChart.getData().add(series);
 	}
 	
 	
@@ -318,5 +349,8 @@ public class RegisterController implements Initializable {
 		tableClientList.setItems(clientDAO.filtre(filtre.getText().trim()));
 	}
 	
-
+	
+	
+	//statistique
+	
 }

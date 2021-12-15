@@ -1,7 +1,7 @@
 package com.mutuelle.application.models;
 
 
-public class Client {
+public class Client{
     private Long id;
     private String firstname;
     private String lastname;
@@ -12,6 +12,8 @@ public class Client {
     private String numeroBadge;
     private String nomEntreprise;
     private String dateDebut;
+    
+  
 
     public Client() {
         // TODO Auto-generated constructor stub
