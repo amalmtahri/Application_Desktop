@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ClientDAO {
 	public ObservableList<Client> filtre = FXCollections.observableArrayList();
 	public List<Map<String, Integer>> statistiqueList; 
 
-	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
 	 private static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
 	 private static final String GETDATA_QUERY = "SELECT * FROM client";
@@ -33,6 +34,7 @@ public class ClientDAO {
 		 
 		  DatabaseConnection connectNow = new DatabaseConnection();
 	      Connection connectDB = connectNow.getConnection();
+	      LocalDate date = LocalDate.now();
 	      
 	        try (
 	            PreparedStatement preparedStatement = connectDB.prepareStatement(INSERT_QUERY)) {
@@ -45,6 +47,7 @@ public class ClientDAO {
 	            preparedStatement.setString(7, client.getNumeroBadge());
 	            preparedStatement.setString(8, client.getNomEntreprise());
 	            preparedStatement.setString(9, client.getDateDebut());
+	            preparedStatement.setString(10, date.toString());
 	            System.out.println(preparedStatement);
 	            preparedStatement.executeUpdate();
 	        }  
@@ -75,7 +78,7 @@ public class ClientDAO {
 	 	DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
         try {
-            String requetteSQL  = "SELECT nomEntreprise FROM client";
+            String requetteSQL  = "SELECT distinct nomEntreprise FROM client";
             PreparedStatement stat = connectDB.prepareStatement(requetteSQL);
             ResultSet rs = stat.executeQuery();
              while (rs.next()) {

@@ -314,6 +314,8 @@ public class RegisterController implements Initializable {
              series.getData().add(new XYChart.Data<>(elemt.keySet().toString(),r));
         }
         barChart.getData().add(series);
+        barChart.setLegendVisible(false);
+
 	}
 	
 	
