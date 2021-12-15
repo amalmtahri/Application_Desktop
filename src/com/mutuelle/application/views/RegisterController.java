@@ -1,9 +1,13 @@
 package com.mutuelle.application.views;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InaccessibleObjectException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,11 +15,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mutuelle.application.Impl.ClientImpl;
 import com.mutuelle.application.dao.ClientDAO;
 import com.mutuelle.application.dao.OfficerDAO;
-import com.mutuelle.application.dao.StatistiqueDAO;
 import com.mutuelle.application.models.Client;
+import com.mutuelle.application.models.CodePays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +88,7 @@ public class RegisterController implements Initializable {
 	@FXML
 	private Label verifChamps;
 	@FXML
-	private ChoiceBox<String> choisePhone ;
+	private ComboBox<CodePays> choisePhone ;
 	
 	@FXML
 	private ComboBox<String> nameCompany ;
@@ -199,7 +207,7 @@ public class RegisterController implements Initializable {
 		}
 
 
-		if(!telephone.getText().matches("\\d{10}")) {
+		if(!telephone.getText().matches("\\d{9}")) {
 			errorTelephone.setText("the phone number is invalid\n");
 			compErr++;
 		}
@@ -229,7 +237,7 @@ public class RegisterController implements Initializable {
 	public void dataClient() throws SQLException {
 		ClientImpl clientImpl = new ClientImpl();
 		ClientDAO clientDAO = new ClientDAO();
-		clientDAO.addClient(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), telephone.getText(),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
+		clientDAO.addClient(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), (choisePhone.getValue() + telephone.getText()  ),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
 		emptyChamp();
 	}
 	public void emptyChamp() {
@@ -251,40 +259,38 @@ public class RegisterController implements Initializable {
 		errorTelephone.setText("");
 		errorEmail.setText("");
 		verifChamps.setText("");
-		initialize(null, null);
+		loadpayscodes();
 	}
 
-	/*@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
-		JSONParser jsonParser = new JSONParser();
-		try (FileReader reader = new FileReader("C:\\Users\\adm\\Desktop\\brief3\\src\\main\\java\\com\\app\\data2.json"))
-		{
-			Object obj = jsonParser.parse(reader);
-
-			JSONArray numbrePhone = (JSONArray) obj;
-			for (Object object : numbrePhone) {
-				JSONObject o = (JSONObject) object;
-				choisePhone.getItems().add((String)o.get("dial_code"));
-			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	// Data Build
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		nameCompany.getItems().add("All");
+	
+	public void loadpayscodes() {
+        ArrayList<CodePays> codepays = new ArrayList<CodePays>();
+       ObjectMapper objectMapper = new ObjectMapper();
+         try {
+               InputStream inputStream = new FileInputStream(new File("C:/Users/adm/Desktop/MutuelleCentralisee/src/com/mutuelle/application/views/data2.json"));
+               TypeReference<List<CodePays>> typeReference = new TypeReference<List<CodePays>>() {};
+               codepays = (ArrayList<CodePays>) objectMapper.readValue(inputStream, typeReference);              
+           }catch(FileNotFoundException e) {
+               e.printStackTrace();
+           } catch (StreamReadException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           } catch (DatabindException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           } catch (IOException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           }
+         catch (InaccessibleObjectException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           }
+         
+         choisePhone.getItems().addAll(codepays);
+   }
+	//remplisage de table et combobox de nom company
+	public void buildData() {
 		ClientDAO clientDAO = new ClientDAO();
 		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
 		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
@@ -296,17 +302,14 @@ public class RegisterController implements Initializable {
 		emailClient.setCellValueFactory(new PropertyValueFactory<Client, String>("email"));
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.buildData());
+		nameCompany.getItems().add("All");
 		nameCompany.getItems().addAll(clientDAO.getNameCompany());	
 		
-		
-		//statistique
+	}
+	public void statistique() {
+		ClientDAO clientDAO = new ClientDAO();
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		series.setName("Date de l'inscription");
-//		series.getData().add(new XYChart.Data<>("Desktop", 63));
-//		series.getData().add(new XYChart.Data<>("Tablet", 51));
-//		series.getData().add(new XYChart.Data<>("Mobile", 27));
-		
-		
+		series.setName("Date de l'inscription");	
 		var data = new XYChart.Series<String, Number>();
         for(Map<String,Integer> elemt:clientDAO.statistique()) {
              //System.out.println(elemt.keySet()+""+elemt.values().toArray()[0]);
@@ -315,7 +318,14 @@ public class RegisterController implements Initializable {
         }
         barChart.getData().add(series);
         barChart.setLegendVisible(false);
-
+		
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		buildData();
+		loadpayscodes();
+		statistique();
 	}
 	
 	
@@ -323,7 +333,6 @@ public class RegisterController implements Initializable {
 	@FXML
 	public void filtreWithCompany() {
 		ClientDAO clientDAO = new ClientDAO();
-		
 		badge.setCellValueFactory(new PropertyValueFactory<Client, String>("numeroBadge"));
 		entrepriseName.setCellValueFactory(new PropertyValueFactory<Client, String>("nomEntreprise"));
 		prenom.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
@@ -350,9 +359,6 @@ public class RegisterController implements Initializable {
 		dateTravail.setCellValueFactory(new PropertyValueFactory<Client, String>("dateDebut"));
 		tableClientList.setItems(clientDAO.filtre(filtre.getText().trim()));
 	}
-	
-	
-	
-	//statistique
+
 	
 }

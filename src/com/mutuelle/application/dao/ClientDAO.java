@@ -11,25 +11,29 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
+
+import com.mutuelle.application.dao.Interface.ClientDAOInterface;
 import com.mutuelle.application.models.Client;
 import com.mutuelle.databaseConnection.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class ClientDAO {
+public class ClientDAO implements ClientDAOInterface{
 	
 	public ObservableList<Client> data = FXCollections.observableArrayList();
 	public ObservableList<String> nameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtreNameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtre = FXCollections.observableArrayList();
 	public List<Map<String, Integer>> statistiqueList; 
-
+//  WHERE NOT EXISTS (SELECT * FROM client  WHERE identite = ? AND numeroBadge = ?)
 	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
 	 private static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
 	 private static final String GETDATA_QUERY = "SELECT * FROM client";
 	 private static final String STATISTIQUE_QUERY = "SELECT created_at, COUNT(*) as 'count crated_at' FROM client GROUP BY created_at";
+	 
+	 @Override
 	 public void addClient(Client client) throws SQLException {
 		 
 		  DatabaseConnection connectNow = new DatabaseConnection();
@@ -55,6 +59,7 @@ public class ClientDAO {
 	            e.printStackTrace();
 	        }
 	    }
+	 @Override
 	 public ObservableList<Client> buildData() {
 		 
 		 	DatabaseConnection connectNow = new DatabaseConnection();
@@ -72,6 +77,7 @@ public class ClientDAO {
 			return data;
 	}
 	 
+	 @Override
 	public ObservableList<String> getNameCompany(){
 		
 
@@ -90,7 +96,7 @@ public class ClientDAO {
 			return nameCompany;
 		
 	}
-	
+	@Override
 	public ObservableList<Client> filtreWithCompany(String nomEntreprise){
 	 	DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
@@ -122,6 +128,7 @@ public class ClientDAO {
 			return filtreNameCompany;
 	}
 	
+	@Override
 	public ObservableList<Client> filtre(String value){
 		DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
@@ -145,7 +152,7 @@ public class ClientDAO {
 			return filtre;
 	}
 	
-	
+	@Override
 	 public List<Map<String, Integer>> statistique() {
 		 statistiqueList=new ArrayList<Map<String,Integer>>();
 		 	DatabaseConnection connectNow = new DatabaseConnection();

@@ -6,6 +6,8 @@ module MutuelleCenta {
 	requires javafx.base;
 	requires java.desktop;
 	requires junit;
+	requires com.fasterxml.jackson.databind;
+	requires com.fasterxml.jackson.core;
 	
 	
 	opens com.mutuelle.application to javafx.graphics, javafx.fxml;
