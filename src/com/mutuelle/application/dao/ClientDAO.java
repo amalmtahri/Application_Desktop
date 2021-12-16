@@ -31,12 +31,7 @@ public class ClientDAO implements ClientDAOInterface{
 	public List<String> search = new ArrayList<>();
 	public List<Map<String, Integer>> statistiqueList; 
 //  WHERE NOT EXISTS (SELECT * FROM client  WHERE identite = ? AND numeroBadge = ?)
-	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-	 private static final String SELECT_QUERY = "SELECT * FROM client WHERE nomEntreprise = ?";
-	 private static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
-	 private static final String GETDATA_QUERY = "SELECT * FROM client";
-	 private static final String STATISTIQUE_QUERY = "SELECT created_at, COUNT(*) as 'count crated_at' FROM client GROUP BY created_at";
-	 
+	RequetteDAO requetteDAO = new RequetteDAO();
 	 @Override
 	 public void addClient(Client client) throws SQLException {
 		 
@@ -45,7 +40,7 @@ public class ClientDAO implements ClientDAOInterface{
 	      LocalDate date = LocalDate.now();
 	      if(search(client.getCin().toString(), client.getNumeroBadge().toString()).isEmpty()) {
 	    	  try (
-	  	            PreparedStatement preparedStatement = connectDB.prepareStatement(INSERT_QUERY)) {
+	  	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.INSERT_QUERY)) {
 	  	            preparedStatement.setString(1, client.getFirstname());
 	  	            preparedStatement.setString(2, client.getLastname());
 	  	            preparedStatement.setString(3, client.getEmail());
@@ -106,7 +101,7 @@ public class ClientDAO implements ClientDAOInterface{
 		 	Connection connectDB = connectNow.getConnection();
 	      
 	        try {
-	            PreparedStatement stat = connectDB.prepareStatement(GETDATA_QUERY);
+	            PreparedStatement stat = connectDB.prepareStatement(requetteDAO.GETDATA_QUERY);
 	            ResultSet rs = stat.executeQuery();
 	             while (rs.next()) {
 	                    data.add(new Client(rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
@@ -140,7 +135,7 @@ public class ClientDAO implements ClientDAOInterface{
 	 	Connection connectDB = connectNow.getConnection();
 		if(!nomEntreprise.equalsIgnoreCase("All")) {
 	        try {
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(SELECT_QUERY); {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.SELECT_QUERY); {
 	                preparedStatement.setString(1, nomEntreprise);
 	                ResultSet resultSet = preparedStatement.executeQuery();
 	                while (resultSet.next()) {
@@ -153,7 +148,7 @@ public class ClientDAO implements ClientDAOInterface{
 		 }
 		else {
 			try {
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(GETDATA_QUERY); {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.GETDATA_QUERY); {
 	                ResultSet resultSet = preparedStatement.executeQuery();
 	                while (resultSet.next()) {
 	                	filtreNameCompany.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
@@ -174,7 +169,7 @@ public class ClientDAO implements ClientDAOInterface{
 	        System.out.println(connectDB);
 	       
 	        	try {
-		            PreparedStatement preparedStatement = connectDB.prepareStatement(FILTRE_QUERY); {
+		            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.FILTRE_QUERY); {
 		                preparedStatement.setString(1, value);
 		                preparedStatement.setString(2, value);
 		                preparedStatement.setString(3, value);
@@ -197,7 +192,7 @@ public class ClientDAO implements ClientDAOInterface{
 		 	DatabaseConnection connectNow = new DatabaseConnection();
 		 	Connection connectDB = connectNow.getConnection();
 	        try {
-	            PreparedStatement stat = connectDB.prepareStatement(STATISTIQUE_QUERY);
+	            PreparedStatement stat = connectDB.prepareStatement(requetteDAO.STATISTIQUE_QUERY);
 	            ResultSet rs = stat.executeQuery();  
 	            while (rs.next()) {
                     Map<String,Integer> temp = new HashMap<String,Integer>();                

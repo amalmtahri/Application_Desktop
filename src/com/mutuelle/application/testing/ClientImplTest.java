@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.mutuelle.application.Impl.ClientImpl;
 import com.mutuelle.application.dao.ClientDAO;
 
-public class ClientImplTesting {
+public class ClientImplTest {
 
 	@Test
 	public void testAddClient() {

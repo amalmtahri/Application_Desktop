@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.mutuelle.application.dao.ClientDAO;
 
-public class ClientDAOTesting {
+public class ClientDAOTest {
 	ClientDAO clientDAO = new ClientDAO();
 	List<String> test = new ArrayList<>();
 	@Test

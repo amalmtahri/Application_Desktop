@@ -6,16 +6,14 @@ import com.mutuelle.databaseConnection.DatabaseConnection;
 import java.sql.*;
 
 public class OfficerDAO implements OfficerDAOInterface{
-
-    private static final String SELECT_QUERY = "SELECT * FROM officer WHERE email = ? and password = ?";
-
+	RequetteDAO requetteDAO = new RequetteDAO();
     @Override
     public boolean validateLogin(String email, String password) {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
         System.out.println(connectDB);
         try {
-            PreparedStatement preparedStatement = connectDB.prepareStatement(SELECT_QUERY); {
+            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.LOGIN_QUERY); {
                 preparedStatement.setString(1, email);
                 preparedStatement.setString(2, password);
                 System.out.println(preparedStatement);

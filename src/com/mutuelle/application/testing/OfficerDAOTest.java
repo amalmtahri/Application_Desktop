@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.mutuelle.application.dao.ClientDAO;
 import com.mutuelle.application.dao.OfficerDAO;
 
-public class OfficerDAOTesting {
+public class OfficerDAOTest {
 
 	@Test
 	public void testAuth() {
