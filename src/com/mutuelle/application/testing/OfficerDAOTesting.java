@@ -10,7 +10,7 @@ import com.mutuelle.application.dao.OfficerDAO;
 public class OfficerDAOTesting {
 
 	@Test
-	public void test() {
+	public void testAuth() {
 		OfficerDAO officerDAO = new OfficerDAO();
 		assertTrue(officerDAO.validateLogin("gmcowis3@alibaba.com", "VCpfMt"));
 

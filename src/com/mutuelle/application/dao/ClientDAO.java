@@ -69,7 +69,12 @@ public class ClientDAO implements ClientDAOInterface{
 	  	        }
 	      }
 	      else {
-	    	  System.out.println("ces données deja enregistrer");
+	    	  	System.out.println("ces données deja enregistrer");
+	    	  	Alert alert = new Alert(AlertType.INFORMATION);
+	  	  		alert.setTitle("Warning !");
+	  	  		alert.setHeaderText("Results:");
+	  	  		alert.setContentText("Numero de badge ou Identite deja existe !");
+	  	  		alert.showAndWait();
 	      }
 	      
 	        
