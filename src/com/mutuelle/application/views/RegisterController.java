@@ -240,11 +240,6 @@ public class RegisterController implements Initializable {
 		ClientImpl clientImpl = new ClientImpl();
 		ClientDAO clientDAO = new ClientDAO();
 		clientDAO.addClient(clientImpl.addClient(prenomClient.getText(),nomClient.getText(),email.getText(), (choisePhone.getValue() + telephone.getText()  ),adresse.getText(),cin.getText(),numeroBadge.getText(),nomEntreprise.getText(),dateDebutTravail.getValue().toString()));
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Success");
-		alert.setHeaderText("Results:");
-		alert.setContentText("Client Sera ajouter!");
-		alert.showAndWait();
 		emptyChamp();
 	}
 	public void emptyChamp() {

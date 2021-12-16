@@ -17,6 +17,8 @@ import com.mutuelle.application.models.Client;
 import com.mutuelle.databaseConnection.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class ClientDAO implements ClientDAOInterface{
@@ -25,6 +27,8 @@ public class ClientDAO implements ClientDAOInterface{
 	public ObservableList<String> nameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtreNameCompany = FXCollections.observableArrayList();
 	public ObservableList<Client> filtre = FXCollections.observableArrayList();
+	
+	public List<String> search = new ArrayList<>();
 	public List<Map<String, Integer>> statistiqueList; 
 //  WHERE NOT EXISTS (SELECT * FROM client  WHERE identite = ? AND numeroBadge = ?)
 	 private static final String INSERT_QUERY = "INSERT INTO client (firstName, lastName, email, phone, addresse, identite, numeroBadge, nomEntreprise, dateDebut, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
@@ -39,26 +43,57 @@ public class ClientDAO implements ClientDAOInterface{
 		  DatabaseConnection connectNow = new DatabaseConnection();
 	      Connection connectDB = connectNow.getConnection();
 	      LocalDate date = LocalDate.now();
+	      if(search(client.getCin().toString(), client.getNumeroBadge().toString()).isEmpty()) {
+	    	  try (
+	  	            PreparedStatement preparedStatement = connectDB.prepareStatement(INSERT_QUERY)) {
+	  	            preparedStatement.setString(1, client.getFirstname());
+	  	            preparedStatement.setString(2, client.getLastname());
+	  	            preparedStatement.setString(3, client.getEmail());
+	  	            preparedStatement.setString(4, client.getPhone());
+	  	            preparedStatement.setString(5, client.getAddress());
+	  	            preparedStatement.setString(6, client.getCin());
+	  	            preparedStatement.setString(7, client.getNumeroBadge());
+	  	            preparedStatement.setString(8, client.getNomEntreprise());
+	  	            preparedStatement.setString(9, client.getDateDebut());
+	  	            preparedStatement.setString(10, date.toString());
+	  	            System.out.println(preparedStatement);
+	  	            preparedStatement.executeUpdate();
+		  	  		Alert alert = new Alert(AlertType.INFORMATION);
+		  	  		alert.setTitle("Success");
+		  	  		alert.setHeaderText("Results:");
+		  	  		alert.setContentText("Client Sera ajouter!");
+		  	  		alert.showAndWait();
+	  	        }  
+	  	        catch(SQLException e) {
+	  	            e.printStackTrace();
+	  	        }
+	      }
+	      else {
+	    	  System.out.println("ces données deja enregistrer");
+	      }
 	      
-	        try (
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(INSERT_QUERY)) {
-	            preparedStatement.setString(1, client.getFirstname());
-	            preparedStatement.setString(2, client.getLastname());
-	            preparedStatement.setString(3, client.getEmail());
-	            preparedStatement.setString(4, client.getPhone());
-	            preparedStatement.setString(5, client.getAddress());
-	            preparedStatement.setString(6, client.getCin());
-	            preparedStatement.setString(7, client.getNumeroBadge());
-	            preparedStatement.setString(8, client.getNomEntreprise());
-	            preparedStatement.setString(9, client.getDateDebut());
-	            preparedStatement.setString(10, date.toString());
-	            System.out.println(preparedStatement);
-	            preparedStatement.executeUpdate();
-	        }  
-	        catch(SQLException e) {
-	            e.printStackTrace();
-	        }
+	        
 	    }
+	 public List<String> search(String identite, String numeroBadge) {
+		 String requette = "SELECT * FROM client  WHERE identite = ? OR numeroBadge = ?";
+		 DatabaseConnection connectNow = new DatabaseConnection();
+		 	Connection connectDB = connectNow.getConnection();
+	      
+	        try {
+	            PreparedStatement stat = connectDB.prepareStatement(requette);
+	            stat.setString(1, identite);
+	            stat.setString(2, numeroBadge);
+                ResultSet resultSet = stat.executeQuery();
+                while (resultSet.next()) {
+                	search.add(resultSet.getString("identite"));
+                	search.add(resultSet.getString("numeroBadge"));
+            }
+	           
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(null, ex);
+	        }
+			return search;			
+	 }
 	 @Override
 	 public ObservableList<Client> buildData() {
 		 
