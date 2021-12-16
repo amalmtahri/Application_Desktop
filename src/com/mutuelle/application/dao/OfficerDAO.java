@@ -13,7 +13,7 @@ public class OfficerDAO implements OfficerDAOInterface{
         Connection connectDB = connectNow.getConnection();
         System.out.println(connectDB);
         try {
-            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.LOGIN_QUERY); {
+            PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.LOGIN_QUERY); {
                 preparedStatement.setString(1, email);
                 preparedStatement.setString(2, password);
                 System.out.println(preparedStatement);

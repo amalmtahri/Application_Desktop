@@ -30,8 +30,10 @@ public class ClientDAO implements ClientDAOInterface{
 	
 	public List<String> search = new ArrayList<>();
 	public List<Map<String, Integer>> statistiqueList; 
-//  WHERE NOT EXISTS (SELECT * FROM client  WHERE identite = ? AND numeroBadge = ?)
-	RequetteDAO requetteDAO = new RequetteDAO();
+	
+	
+	//----------------------------------------Method add Client ---------------------------------//
+	
 	 @Override
 	 public void addClient(Client client) throws SQLException {
 		 
@@ -40,7 +42,7 @@ public class ClientDAO implements ClientDAOInterface{
 	      LocalDate date = LocalDate.now();
 	      if(search(client.getCin().toString(), client.getNumeroBadge().toString()).isEmpty()) {
 	    	  try (
-	  	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.INSERT_QUERY)) {
+	  	            PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.INSERT_QUERY)) {
 	  	            preparedStatement.setString(1, client.getFirstname());
 	  	            preparedStatement.setString(2, client.getLastname());
 	  	            preparedStatement.setString(3, client.getEmail());
@@ -71,9 +73,10 @@ public class ClientDAO implements ClientDAOInterface{
 	  	  		alert.setContentText("Numero de badge ou Identite deja existe !");
 	  	  		alert.showAndWait();
 	      }
-	      
-	        
 	    }
+	 
+	//---------------------------------------- Varification if client exist or no ---------------------------------//
+	 
 	 public List<String> search(String identite, String numeroBadge) {
 		 String requette = "SELECT * FROM client  WHERE identite = ? OR numeroBadge = ?";
 		 DatabaseConnection connectNow = new DatabaseConnection();
@@ -94,6 +97,8 @@ public class ClientDAO implements ClientDAOInterface{
 	        System.out.println(search);
 			return search;			
 	 }
+	 //---------------------------------------Method get data---------------------------------//
+	 
 	 @Override
 	 public ObservableList<Client> buildData() {
 		 
@@ -101,7 +106,7 @@ public class ClientDAO implements ClientDAOInterface{
 		 	Connection connectDB = connectNow.getConnection();
 	      
 	        try {
-	            PreparedStatement stat = connectDB.prepareStatement(requetteDAO.GETDATA_QUERY);
+	            PreparedStatement stat = connectDB.prepareStatement(RequetteDAO.GETDATA_QUERY);
 	            ResultSet rs = stat.executeQuery();
 	             while (rs.next()) {
 	                    data.add(new Client(rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
@@ -111,7 +116,7 @@ public class ClientDAO implements ClientDAOInterface{
 	        }
 			return data;
 	}
-	 
+	//-------------------------------Method get Company---------------------------------//
 	 @Override
 	public ObservableList<String> getNameCompany(){
 	 	DatabaseConnection connectNow = new DatabaseConnection();
@@ -127,15 +132,16 @@ public class ClientDAO implements ClientDAOInterface{
 	            JOptionPane.showMessageDialog(null, ex);
 	        }
 			return nameCompany;
-		
 	}
+	 //--------------------------------Filtre data with name company--------------------------//
+	 
 	@Override
 	public ObservableList<Client> filtreWithCompany(String nomEntreprise){
 	 	DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
 		if(!nomEntreprise.equalsIgnoreCase("All")) {
 	        try {
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.SELECT_QUERY); {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.SELECT_QUERY); {
 	                preparedStatement.setString(1, nomEntreprise);
 	                ResultSet resultSet = preparedStatement.executeQuery();
 	                while (resultSet.next()) {
@@ -148,7 +154,7 @@ public class ClientDAO implements ClientDAOInterface{
 		 }
 		else {
 			try {
-	            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.GETDATA_QUERY); {
+	            PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.GETDATA_QUERY); {
 	                ResultSet resultSet = preparedStatement.executeQuery();
 	                while (resultSet.next()) {
 	                	filtreNameCompany.add(new Client(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
@@ -162,6 +168,8 @@ public class ClientDAO implements ClientDAOInterface{
 			return filtreNameCompany;
 	}
 	
+	//-----------------------------------Filtre with firstName, LastName, Email, Identite---------------------------------//
+	
 	@Override
 	public ObservableList<Client> filtre(String value){
 		DatabaseConnection connectNow = new DatabaseConnection();
@@ -169,7 +177,7 @@ public class ClientDAO implements ClientDAOInterface{
 	        System.out.println(connectDB);
 	       
 	        	try {
-		            PreparedStatement preparedStatement = connectDB.prepareStatement(requetteDAO.FILTRE_QUERY); {
+		            PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.FILTRE_QUERY); {
 		                preparedStatement.setString(1, value);
 		                preparedStatement.setString(2, value);
 		                preparedStatement.setString(3, value);
@@ -186,13 +194,15 @@ public class ClientDAO implements ClientDAOInterface{
 			return filtre;
 	}
 	
+	//----------------------------------------Statistique-----------------------------------//
+	
 	@Override
 	 public List<Map<String, Integer>> statistique() {
 		 statistiqueList=new ArrayList<Map<String,Integer>>();
 		 	DatabaseConnection connectNow = new DatabaseConnection();
 		 	Connection connectDB = connectNow.getConnection();
 	        try {
-	            PreparedStatement stat = connectDB.prepareStatement(requetteDAO.STATISTIQUE_QUERY);
+	            PreparedStatement stat = connectDB.prepareStatement(RequetteDAO.STATISTIQUE_QUERY);
 	            ResultSet rs = stat.executeQuery();  
 	            while (rs.next()) {
                     Map<String,Integer> temp = new HashMap<String,Integer>();                
