@@ -119,8 +119,6 @@ public class RegisterController implements Initializable {
 	private TableView<Client> tableClientList;
 	boolean filledCin;
 
-	
-	
 	@FXML
 	private NumberAxis naVisits;
 	@FXML
@@ -326,6 +324,8 @@ public class RegisterController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ClientDAO clientDAO = new ClientDAO();
+		clientDAO.filtreWithCompany("YouCode");
 		buildData();
 		loadpayscodes();
 		statistique();

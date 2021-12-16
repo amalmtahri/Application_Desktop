@@ -78,7 +78,6 @@ public class ClientDAO implements ClientDAOInterface{
 		 String requette = "SELECT * FROM client  WHERE identite = ? OR numeroBadge = ?";
 		 DatabaseConnection connectNow = new DatabaseConnection();
 		 	Connection connectDB = connectNow.getConnection();
-	      
 	        try {
 	            PreparedStatement stat = connectDB.prepareStatement(requette);
 	            stat.setString(1, identite);
@@ -92,6 +91,7 @@ public class ClientDAO implements ClientDAOInterface{
 	        } catch (SQLException ex) {
 	            JOptionPane.showMessageDialog(null, ex);
 	        }
+	        System.out.println(search);
 			return search;			
 	 }
 	 @Override
@@ -114,8 +114,6 @@ public class ClientDAO implements ClientDAOInterface{
 	 
 	 @Override
 	public ObservableList<String> getNameCompany(){
-		
-
 	 	DatabaseConnection connectNow = new DatabaseConnection();
 	 	Connection connectDB = connectNow.getConnection();
         try {
@@ -160,6 +158,7 @@ public class ClientDAO implements ClientDAOInterface{
 	            JOptionPane.showMessageDialog(null, ex);
 	        }
 		}
+		System.out.println(filtreNameCompany);
 			return filtreNameCompany;
 	}
 	
