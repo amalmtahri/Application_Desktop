@@ -6,8 +6,8 @@ import com.mutuelle.databaseConnection.DatabaseConnection;
 import java.sql.*;
 
 public class OfficerDAO implements OfficerDAOInterface{
-	RequetteDAO requetteDAO = new RequetteDAO();
-    @Override
+
+	@Override
     public boolean validateLogin(String email, String password) {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();

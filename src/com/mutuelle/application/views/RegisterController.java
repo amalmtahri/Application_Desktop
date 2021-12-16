@@ -207,25 +207,25 @@ public class RegisterController implements Initializable {
 		}
 
 
-		if(!telephone.getText().matches("\\d{9}")) {
+		if(!telephone.getText().matches("\\d{9}") && !telephone.getText().isBlank()) {
 			errorTelephone.setText("the phone number is invalid\n");
 			compErr++;
 		}
-		if(filledCin && cin.getText().length() > 8) {
+		if(filledCin && cin.getText().length() > 8 && !cin.getText().isBlank()) {
 			compErr++;
 			errorCIN.setText("the cin number can not have more then 8 N");
 
 		}
 
-		if(filledCin && !cin.getText().matches("[a-zA-Z]{2}\\d{6}")) {
+		if(filledCin && !cin.getText().matches("[a-zA-Z]{2}\\d{6}") && !cin.getText().isBlank()) {
 			compErr++;
 			errorCIN.setText("the cin must be 2 numbers and 6 L");
 		}
-		if(!filledCin && !cin.getText().matches("[a-zA-Z]{2}\\d{7}")) {
+		if(!filledCin && !cin.getText().matches("[a-zA-Z]{2}\\d{7}") && !cin.getText().isBlank()) {
 			compErr++;
 			errorCIN.setText("the Passport must be 2 numbers and 7 L");
 		}
-		if(!email.getText().matches("^(.+)@(.+)$")) {
+		if(!email.getText().matches("^(.+)@(.+)$") && !email.getText().isBlank()) {
 			compErr++;
 			errorEmail.setText("format invalide");
 		}
