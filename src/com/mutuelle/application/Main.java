@@ -14,7 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			   Pane root = (Pane)FXMLLoader.load(getClass().getResource("views/welcomePage.fxml"));
-	            Scene scene = new Scene(root,700,400);
+	            Scene scene = new Scene(root,735,400);
 	            primaryStage.initStyle(StageStyle.UNDECORATED);
 	            scene.getStylesheets().add(getClass().getResource("views/application.css").toExternalForm());
 	            primaryStage.setScene(scene);

@@ -80,7 +80,7 @@ public class RegisterController implements Initializable {
 	@FXML
 	private Label errorCIN;
 	@FXML
-	private TextArea adresse;
+	private TextField adresse;
 	@FXML
 	private TextField email;
 	@FXML
@@ -130,22 +130,17 @@ public class RegisterController implements Initializable {
 	private Scene scene;
 
 	List<Client> clientList = new ArrayList<>();
-	@FXML
-	private Label choixIdentite;
+
 	@FXML
 	public void cinIdentite() {
 		cin.setPromptText("CIN de Client");
 		cin.setVisible(true);
-		choixIdentite.setText("CIN :");
-		choixIdentite.setVisible(true);
 		filledCin = true;
 	}
 	@FXML
 	public void passIdentite() {
 		cin.setPromptText("Passport de Client");
 		cin.setVisible(true);
-		choixIdentite.setText("PASSPORT :");
-		choixIdentite.setVisible(true);
 	}
 
 	@FXML
@@ -158,6 +153,7 @@ public class RegisterController implements Initializable {
 	}
 	@FXML
 	public void registerButton(ActionEvent event) throws SQLException {
+		
 		errorCIN.setText("");
 		errorNomClient.setText("");
 		errorNomEntreprise.setText("");

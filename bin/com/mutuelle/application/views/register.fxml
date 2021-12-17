@@ -9,200 +9,136 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mutuelle.application.views.RegisterController">
-   <left>
-      <SplitPane prefHeight="400.0" prefWidth="700.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="679.0">
-               <children>
-                  <TabPane layoutX="-1.0" prefHeight="400.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab style="fx-background-color: #835DF0;" text="Register">
-                           <content>
-                              <Pane prefHeight="200.0" prefWidth="200.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mutuelle.application.views.RegisterController">
+   <children>
+      <TabPane prefHeight="420.0" prefWidth="735.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Add Client">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="735.0">
+                     <children>
+                        <Pane layoutX="-2.0" prefHeight="393.0" prefWidth="742.0" style="-fx-background-color: #0F4174;">
+                           <children>
+                              <Circle fill="#2e5986" layoutX="151.0" layoutY="318.0" radius="183.0" stroke="#2e5986" strokeType="INSIDE" />
+                              <Circle fill="#1565b6" layoutX="473.0" layoutY="63.0" radius="128.0" stroke="#1565b6" strokeType="INSIDE" />
+                              <AnchorPane layoutX="31.0" layoutY="25.0" prefHeight="344.0" prefWidth="677.0" style="-fx-background-color: white; -fx-border-radius: 5px;">
                                  <children>
-                                    <AnchorPane layoutX="17.0" layoutY="9.0" prefHeight="349.0" prefWidth="671.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <AnchorPane layoutX="-3.0" prefHeight="349.0" prefWidth="186.0" style="-fx-background-color: #835DF0;">
-                                             <children>
-                                                <Circle fill="#bfabe9" layoutX="26.0" layoutY="320.0" onDragDetected="#logout" onInputMethodTextChanged="#logout" radius="21.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Circle fill="WHITE" layoutX="25.0" layoutY="35.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="74.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mutual Benefits">
-                                                   <font>
-                                                      <Font name="System Bold" size="13.0" />
-                                                   </font>
-                                                </Text>
-                                                <Line endX="-90.0" endY="122.66665649414062" layoutX="115.0" layoutY="-42.0" startX="-90.0" startY="75.66667175292969" stroke="WHITE" />
-                                                <Text fill="WHITE" layoutX="43.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obligatoire">
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Text>
-                                                <Circle fill="#bfabe9" layoutX="25.0" layoutY="61.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="44.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salariés du secteur privé" />
-                                                <Circle fill="#bfabe9" layoutX="25.0" layoutY="84.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="44.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Associations" />
-                                                <Line endX="-90.0" endY="178.0" layoutX="115.0" layoutY="43.0" startX="-90.0" startY="75.66667175292969" stroke="WHITE" />
-                                                <Circle fill="WHITE" layoutX="25.0" layoutY="118.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="45.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facultative">
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Text>
-                                                <Circle fill="#bfabe9" layoutX="25.0" layoutY="145.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="42.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiants" />
-                                                <Circle fill="#bfabe9" layoutX="25.0" layoutY="170.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="42.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chômeurs" />
-                                                <Circle fill="#bfabe9" layoutX="25.0" layoutY="194.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="42.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retraités" />
-                                                <Circle fill="#bfabe9" layoutX="26.0" layoutY="220.0" radius="8.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                                <Text fill="WHITE" layoutX="42.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fonctionnaires" />
-                                                <Button layoutX="11.0" layoutY="307.0" mnemonicParsing="false" onAction="#logout" prefHeight="28.0" prefWidth="29.0" style="-fx-background-color: #bfabe9;">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Button>
-                                                <ImageView fitHeight="21.0" fitWidth="24.0" layoutX="17.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@images/logout.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </AnchorPane>
-                                          <Circle fill="#bfabe9" layoutX="639.0" layoutY="306.0" radius="26.0" stroke="#bfabe9" strokeType="INSIDE" />
-                                          <Label fx:id="errorNumeroBadge" layoutX="216.0" layoutY="88.0" textFill="RED" />
-                                          <Label fx:id="errorNomEntreprise" layoutX="482.0" layoutY="88.0" textFill="RED" />
-                                          <Label fx:id="errorPrenomClient" layoutX="216.0" layoutY="144.0" textFill="RED" />
-                                          <Label fx:id="errorNomClient" layoutX="482.0" layoutY="144.0" textFill="RED" />
-                                          <Label fx:id="errorTelephone" layoutX="216.0" layoutY="195.0" textFill="RED">
-                                             <font>
-                                                <Font size="10.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="errorCIN" layoutX="482.0" layoutY="246.0" textFill="RED">
-                                             <font>
-                                                <Font size="10.0" />
-                                             </font>
-                                          </Label>
-                                          <RadioButton layoutX="482.0" layoutY="169.0" mnemonicParsing="false" onAction="#passIdentite" text="Passport">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="identiteClient" />
-                                             </toggleGroup></RadioButton>
-                                          <RadioButton layoutX="571.0" layoutY="169.0" mnemonicParsing="false" onAction="#cinIdentite" text="CIN" toggleGroup="$identiteClient">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor></RadioButton>
-                                          <Label fx:id="choixIdentite" layoutX="482.0" layoutY="202.0" visible="false" />
-                                          <TextField fx:id="cin" layoutX="482.0" layoutY="223.0" visible="false" />
-                                          <Label layoutX="485.0" layoutY="259.0" text="*Email  :" />
-                                          <TextField fx:id="email" layoutX="482.0" layoutY="279.0" promptText="Email" />
-                                          <Label fx:id="verifChamps" layoutX="357.0" layoutY="317.0" prefHeight="17.0" prefWidth="184.0" textFill="RED" />
-                                          <TextArea fx:id="adresse" layoutX="216.0" layoutY="223.0" prefHeight="38.0" prefWidth="148.0" promptText="Adresse" />
-                                          <Label fx:id="errorEmail" layoutX="485.0" layoutY="309.0" textFill="RED" />
-                                          <ComboBox fx:id="choisePhone" layoutX="368.0" layoutY="173.0" prefHeight="25.0" prefWidth="57.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <Text fill="#835df0" layoutX="344.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Nouveau client">
+                                    <Label layoutX="22.0" layoutY="13.0" text="Add New Client">
                                        <font>
-                                          <Font name="System Bold" size="12.0" />
+                                          <Font name="System Bold" size="16.0" />
                                        </font>
-                                    </Text>
-                                    <Label layoutX="232.0" layoutY="47.0" text="*N° badge de travail :" />
-                                    <TextField fx:id="numeroBadge" layoutX="232.0" layoutY="73.0" promptText="numero de badge" />
-                                    <Label layoutX="499.0" layoutY="49.0" text="*Nom de l'entreprise :" />
-                                    <TextField fx:id="nomEntreprise" layoutX="498.0" layoutY="72.0" promptText="nom de entreprise" />
-                                    <Label layoutX="232.0" layoutY="107.0" text="*Prenom de Client :" />
-                                    <TextField fx:id="prenomClient" layoutX="231.0" layoutY="128.0" promptText="Prenom" />
-                                    <Label layoutX="498.0" layoutY="106.0" text="*Nom de Client :" />
-                                    <TextField fx:id="nomClient" layoutX="498.0" layoutY="127.0" promptText="Nom" />
-                                    <Label layoutX="232.0" layoutY="160.0" text="*Téléphone  :" />
-                                    <TextField fx:id="telephone" layoutX="231.0" layoutY="182.0" promptText="Phone" />
-                                    <Label layoutX="232.0" layoutY="216.0" text="*Adresse  :" />
-                                    <Label layoutX="233.0" layoutY="271.0" text="*Date debut travail  :" />
-                                    <DatePicker fx:id="dateDebutTravail" layoutX="233.0" layoutY="291.0" prefHeight="25.0" prefWidth="149.0" promptText="Date de début" />
-                                    <Button layoutX="232.0" layoutY="325.0" mnemonicParsing="false" onAction="#registerButton" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #835DF0;" text="Enregistrer" textFill="WHITE">
+                                    </Label>
+                                    <TextField fx:id="numeroBadge" layoutX="22.0" layoutY="79.0" promptText="Numero de Badge" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="22.0" layoutY="52.0" text="Numero de Badge :" />
+                                    <TextField fx:id="nomEntreprise" layoutX="264.0" layoutY="79.0" promptText="Nom de l'entreprise" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="264.0" layoutY="52.0" text="Nom de l'entreprise :" />
+                                    <Label layoutX="494.0" layoutY="52.0" text="Date debut travail  :" />
+                                    <DatePicker fx:id="dateDebutTravail" layoutX="494.0" layoutY="80.0" prefHeight="25.0" prefWidth="161.0" promptText="Date de debut de travail" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <TextField fx:id="prenomClient" layoutX="22.0" layoutY="158.0" promptText="Prenom de client" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="22.0" layoutY="131.0" text="Prenom de Client :" />
+                                    <TextField fx:id="nomClient" layoutX="264.0" layoutY="158.0" promptText="Nom de client" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="264.0" layoutY="131.0" text="Nom de Client :" />
+                                    <TextField fx:id="telephone" layoutX="494.0" layoutY="158.0" prefHeight="27.0" prefWidth="107.0" promptText="Tele" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="494.0" layoutY="131.0" text="Téléphone  :" />
+                                    <ComboBox fx:id="choisePhone" layoutX="606.0" layoutY="158.0" prefHeight="25.0" prefWidth="52.0" promptText="Code Pays" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <TextField fx:id="adresse" layoutX="22.0" layoutY="239.0" promptText="Addresse" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="22.0" layoutY="212.0" text="Addresse :" />
+                                    <TextField fx:id="email" layoutX="264.0" layoutY="239.0" promptText="Email" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" />
+                                    <Label layoutX="264.0" layoutY="212.0" text="Email :" />
+                                    <RadioButton layoutX="494.0" layoutY="212.0" mnemonicParsing="false" onAction="#passIdentite" text="Passport">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="identiteClient" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton layoutX="598.0" layoutY="212.0" mnemonicParsing="false" onAction="#cinIdentite" text="Cin" toggleGroup="$identiteClient" />
+                                    <TextField fx:id="cin" layoutX="494.0" layoutY="241.0" style="-fx-background-color: transparant; -fx-border-color: #0F4174; -fx-border-width: 0px 0px 2px 0px;" visible="false" />
+                                    <Label fx:id="errorNumeroBadge" layoutX="22.0" layoutY="110.0" textFill="RED" />
+                                    <Label fx:id="errorNomEntreprise" layoutX="264.0" layoutY="110.0" textFill="RED" />
+                                    <Label fx:id="errorNomClient" layoutX="264.0" layoutY="189.0" textFill="RED" />
+                                    <Label fx:id="errorPrenomClient" layoutX="22.0" layoutY="189.0" textFill="RED" />
+                                    <Label fx:id="errorTelephone" layoutX="494.0" layoutY="189.0" textFill="RED" />
+                                    <Label fx:id="errorEmail" layoutX="264.0" layoutY="273.0" textFill="RED" />
+                                    <Label fx:id="errorCIN" layoutX="494.0" layoutY="273.0" textFill="RED" />
+                                    <Label fx:id="verifChamps" layoutX="494.0" layoutY="313.0" textFill="RED" />
+                                    <Button layoutX="284.0" layoutY="290.0" mnemonicParsing="false" onAction="#registerButton" prefHeight="31.0" prefWidth="126.0" style="-fx-background-color: #0F4174;" text="Enregistrer" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
-                                       </cursor></Button>
-                                 </children>
-                              </Pane>
-                           </content>
-                        </Tab>
-                      <Tab text="User Data">
-                           <content>
-                              <AnchorPane>
-                                 <children>
-                                    <TableView fx:id="tableClientList" layoutX="-6.0" layoutY="60.0" prefHeight="310.0" prefWidth="741.0">
-                                      <columns>
-                                        <TableColumn fx:id="badge" prefWidth="75.0" style="-fx-border-color: #835DF0;" text="N° badge de travail" />
-                                        <TableColumn fx:id="entrepriseName" prefWidth="75.0" style="-fx-border-color: #835DF0;" text="Nom de l'entreprise" />
-                                          <TableColumn fx:id="prenom" prefWidth="75.0" style="-fx-border-color: #835DF0;" text="Prenom de Client" />
-                                          <TableColumn fx:id="nom" prefWidth="93.0" style="-fx-border-color: #835DF0;" text="Nom de Client" />
-                                          <TableColumn fx:id="tele" prefWidth="93.6666259765625" style="-fx-border-color: #835DF0;" text="Téléphone" />
-                                          <TableColumn fx:id="identite" prefWidth="81.33331298828125" style="-fx-border-color: #835DF0;" text="CIN/PASSPORT" />
-                                          <TableColumn fx:id="adresseClient" prefWidth="72.6666259765625" style="-fx-border-color: #835DF0;" text="Adresse" />
-                                          <TableColumn fx:id="emailClient" prefWidth="59.0" style="-fx-border-color: #835DF0;" text="Email" />
-                                          <TableColumn fx:id="dateTravail" prefWidth="141.0" style="-fx-border-color: #835DF0;" text="Date" />
-                                      </columns>
-                                    </TableView>
-                                    <AnchorPane layoutY="1.0" prefHeight="61.0" prefWidth="707.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <TextField fx:id="filtre" layoutX="409.0" layoutY="15.0" onAction="#filtreWithString" prefHeight="31.0" prefWidth="279.0" promptText="Search with FirstName, LastName, Email, Cin" style="-fx-border-color: #835DF0;" />
-                                          <ComboBox fx:id="nameCompany" layoutX="146.0" layoutY="15.0" onAction="#filtreWithCompany" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #835DF0;" />
-                                          <Label layoutX="323.0" layoutY="23.0" text="Search Client :" />
-                                          <Label layoutX="8.0" layoutY="22.0" text="Search Name Company :" />
-                                       </children>
-                                    </AnchorPane>
+                                       </cursor>
+                                    </Button>
                                  </children>
                               </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="User Data">
-                           <content>
-                              <AnchorPane>
-                                 <children>
-                                    <AnchorPane layoutY="1.0" prefHeight="368.0" prefWidth="707.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <BarChart fx:id="barChart" layoutX="51.0" layoutY="24.0" prefHeight="340.0" prefWidth="600.0" title="Nombre des clients pour chaque date">
-                                            <xAxis>
-                                              <CategoryAxis fx:id="caDevices" label="Date de l'inscription" side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                              <NumberAxis fx:id="navisits" label="Nombre des clients" side="LEFT" />
-                                            </yAxis>
-                                          </BarChart>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </left>
-</BorderPane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="User Data">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableClientList" layoutY="59.0" prefHeight="333.0" prefWidth="735.0">
+                          <columns>
+                            <TableColumn fx:id="badge" prefWidth="75.0" text="N° badge de travail" />
+                            <TableColumn fx:id="entrepriseName" prefWidth="75.0" text="Nom de l'entreprise" />
+                              <TableColumn fx:id="prenom" prefWidth="75.0" text="Prenom de Client" />
+                              <TableColumn fx:id="nom" prefWidth="75.0" text="Nom de Client" />
+                              <TableColumn fx:id="tele" prefWidth="75.0" text="Téléphone" />
+                              <TableColumn fx:id="identite" prefWidth="75.0" text="Identité" />
+                              <TableColumn fx:id="adresseClient" prefWidth="75.0" text="Adresse" />
+                              <TableColumn fx:id="emailClient" prefWidth="98.3333740234375" text="Email" />
+                              <TableColumn fx:id="dateTravail" prefWidth="109.6666259765625" text="Date Debut de Travail" />
+                          </columns>
+                        </TableView>
+                        <ComboBox fx:id="nameCompany" layoutX="210.0" layoutY="20.0" onAction="#filtreWithCompany" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: transparant; -fx-border-color: #0F4174;" />
+                        <Label layoutX="14.0" layoutY="30.0" text="Filtrage avec nom de l'entreprise :" />
+                        <Label layoutX="440.0" layoutY="27.0" text="Recherche :" />
+                        <TextField fx:id="filtre" layoutX="526.0" layoutY="19.0" onAction="#filtreWithString" prefHeight="29.0" prefWidth="192.0" promptText="Recherche avec nom,prenom,cin,email" style="-fx-background-color: transparant; -fx-border-color: #0F4174;" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Statistique">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BarChart fx:id="barChart" layoutX="85.0" layoutY="16.0" prefHeight="359.0" prefWidth="565.0" title="Nombre des clients pour chaque date">
+                          <xAxis>
+                            <CategoryAxis label="Date de l'inscription" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Nombre des clients" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <Circle fill="#0f4174" layoutX="695.0" layoutY="349.0" radius="26.0" stroke="WHITE" strokeType="INSIDE" />
+                        <Button layoutX="676.0" layoutY="334.0" mnemonicParsing="false" onAction="#logout" prefHeight="29.0" prefWidth="37.0" style="-fx-background-color: #0F4174;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" layoutX="687.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/logout.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
