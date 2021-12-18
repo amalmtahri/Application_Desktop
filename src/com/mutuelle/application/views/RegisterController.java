@@ -168,41 +168,27 @@ public class RegisterController implements Initializable {
 			verifChamps.setText("Svp remplire tous les champs");
 			compErr++;
 		}
-		if(numeroBadge.getText().length() <= 10 ) {
-			System.out.println("done");
-
-		}
-
-		else {
+		if(!(numeroBadge.getText().length() <= 10 )) {
 			compErr++;
-			errorNumeroBadge.setText("max 10");
+			errorNumeroBadge.setText("Le nombre maximale des caractères est 10");
 		}
-		if(nomEntreprise.getText().length() <= 10) {
-			System.out.println("done");
 
-		}
-		else {
+		if(!(nomEntreprise.getText().length() <= 10)) {
 			compErr++;
-			errorNomEntreprise.setText("max 10");
-		}
-		if(prenomClient.getText().length() <= 10) {
-			System.out.println("done");
+			errorNomEntreprise.setText("Le nombre maximale des caractères est 10");
 
 		}
-		else {
+	
+		if(!(prenomClient.getText().length() <= 10)) {
 			compErr++;
-			errorPrenomClient.setText("max 10");
+			errorPrenomClient.setText("Le nombre maximale des caractères est 10");
 		}
-		if(nomClient.getText().length() <= 10) {
-			System.out.println("done");
-
-		}
-		else {
+	
+		if(!(nomClient.getText().length() <= 10)) {
 			compErr++;
-			errorNomClient.setText("max 10");
+			errorNomClient.setText("Le nombre maximale des caractères est 10");
 		}
-
-
+		
 		if(!telephone.getText().matches("\\d{9}") && !telephone.getText().isBlank()) {
 			errorTelephone.setText("the phone number is invalid\n");
 			compErr++;

@@ -7,6 +7,6 @@ public final class RequetteDAO {
 	 public static final String FILTRE_QUERY = "SELECT * FROM client WHERE firstName = ? OR lastName = ? OR email = ? OR identite = ?";
 	 public static final String GETDATA_QUERY = "SELECT * FROM client";
 	 public static final String STATISTIQUE_QUERY = "SELECT created_at, COUNT(*) as 'count crated_at' FROM client GROUP BY created_at";
-	 public static final String LOGIN_QUERY = "SELECT * FROM officer WHERE email = ? and password = ?";
+	 public static final String LOGIN_QUERY = "SELECT * FROM officer WHERE email = ?";
 	 
 }

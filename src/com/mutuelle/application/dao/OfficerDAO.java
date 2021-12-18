@@ -1,7 +1,9 @@
 package com.mutuelle.application.dao;
 
+import com.hierynomus.sshj.userauth.keyprovider.bcrypt.BCrypt;
 import com.mutuelle.application.dao.Interface.OfficerDAOInterface;
 import com.mutuelle.databaseConnection.DatabaseConnection;
+
 
 import java.sql.*;
 
@@ -15,11 +17,12 @@ public class OfficerDAO implements OfficerDAOInterface{
         try {
             PreparedStatement preparedStatement = connectDB.prepareStatement(RequetteDAO.LOGIN_QUERY); {
                 preparedStatement.setString(1, email);
-                preparedStatement.setString(2, password);
                 System.out.println(preparedStatement);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    return true;
+                if(resultSet.next()) {
+                	if(BCrypt.checkpw(password,resultSet.getString("password"))) {
+                		 return true;
+                	}
                 }
             }
         } catch (SQLException e) {

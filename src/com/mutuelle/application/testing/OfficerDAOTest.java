@@ -12,7 +12,7 @@ public class OfficerDAOTest {
 	@Test
 	public void testAuth() {
 		OfficerDAO officerDAO = new OfficerDAO();
-		assertTrue(officerDAO.validateLogin("gmcowis3@alibaba.com", "VCpfMt"));
+		assertTrue(officerDAO.validateLogin("amal@gmail.com", "1234"));
 
 	}
 

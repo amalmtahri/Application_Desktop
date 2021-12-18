@@ -8,6 +8,8 @@ module MutuelleCenta {
 	requires junit;
 	requires com.fasterxml.jackson.databind;
 	requires com.fasterxml.jackson.core;
+	requires bcrypt;
+	requires com.hierynomus.sshj;
 	
 	
 	opens com.mutuelle.application to javafx.graphics, javafx.fxml;
